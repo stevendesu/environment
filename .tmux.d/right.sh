@@ -38,7 +38,7 @@ if [ $WIDTH -ge $MEDIUM_SCREEN ]; then
   mail=$(~/.tmux.d/helpers/mail.sh)
 
   # HTTP status
-  http=$(netstat -tln | grep ":80" > /dev/null && echo "true")
+  http=$(netstat -tln | grep ":80" > /dev/null && echo -n "true")
 
 fi
 
@@ -98,7 +98,7 @@ if [ $WIDTH -ge $SMALL_SCREEN -a $WIDTH -lt $MEDIUM_SCREEN ]; then
 fi
 if [ $WIDTH -ge $MEDIUM_SCREEN -a $WIDTH -lt $LARGE_SCREEN ]; then
   # "Large" view
-  if [ $http -eq "true" ]; then
+  if [ "$http" = "true" ]; then
     httpcolor="#[fg=colour2]"
   else
     httpcolor="#[fg=colour1]"
@@ -107,7 +107,7 @@ if [ $WIDTH -ge $MEDIUM_SCREEN -a $WIDTH -lt $LARGE_SCREEN ]; then
 fi
 if [ $WIDTH -ge $LARGE_SCREEN ]; then
   # "XLarge" view
-  if [ $http -eq "true" ]; then
+  if [ "$http" = "true" ]; then
     httpcolor="#[fg=colour2]"
   else
     httpcolor="#[fg=colour1]"

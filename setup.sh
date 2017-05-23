@@ -31,6 +31,10 @@
 # Step 1: Determine if we have sudo power. This will determine how we install
 #         different software going forward
 
+# Step : Ensure our submodules are initialized
+echo "Preparing environment repo..."
+git submodule update --init --recursive
+
 # Step : Install zsh
 echo "Installing zsh..."
 sudo apt-get --yes install zsh > /dev/null
@@ -38,9 +42,9 @@ sudo apt-get --yes install zsh > /dev/null
 # Step : Configure zsh
 echo "Configuring zsh..."
 # Requires a password (may require root?):
-#chsh -s $(which zsh)
-echo "export SHELL=\`which zsh\`" >> ~/.profile
-echo "[ -z \"\$ZSH_VERSION\" ] && exec \"\$SHELL\" -l" >> ~/.profile
+chsh -s $(which zsh)
+#echo "export SHELL=\`which zsh\`" >> ~/.profile
+#echo "[ -z \"\$ZSH_VERSION\" ] && exec \"\$SHELL\" -l" >> ~/.profile
 
 # Step : Install tmux
 echo "Installing tmux..."
@@ -48,17 +52,34 @@ sudo apt-get --yes install tmux > /dev/null
 
 # Step : Install neovim
 echo "Installing neovim..."
-sudo apt-get --yes install software-properties-common > /dev/null
-sudo apt-add-repository -y ppa:neovim-ppa/unstable > /dev/null
-sudo apt-get update > /dev/null
-sudo apt-get --yes install neovim > /dev/null
+#sudo apt-get --yes install software-properties-common > /dev/null
+#sudo apt-add-repository -y ppa:neovim-ppa/unstable > /dev/null
+#sudo apt-get update > /dev/null
+#sudo apt-get --yes install neovim > /dev/null
+sudo apt-get install neovim
+sudo apt-get install python-neovim
+sudo apt-get install python3-neovim
 
 # Step : Configure neovim
 echo "Configuring neovim..."
-sudo apt-get --yes install python-dev python-pip python3-dev \
-	python3-pip > /dev/null
+#sudo apt-get --yes install python-dev python-pip python3-dev \
+#	python3-pip > /dev/null
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60 > /dev/null
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim \
 	60 > /dev/null
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim \
 	60 > /dev/null
+
+# Step : Copy config and rc files
+ln -s ./.tmux.d ~/
+ln -s ./.tmux.conf ~/
+ln -s ./.zlogin ~/
+ln -s ./.zlogout ~/
+ln -s ./.zpreztorc ~/
+ln -s ./.zshenv ~/
+ln -s ./.zshrc ~/
+mkdir ~/.config/nvim
+ln -s ./init.vim ~/.config/nvim/
+
+# Step : Run vim setup
+vim +PlugInstall +qall

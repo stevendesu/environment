@@ -78,8 +78,10 @@ ln -s ./.zlogout ~/
 ln -s ./.zpreztorc ~/
 ln -s ./.zshenv ~/
 ln -s ./.zshrc ~/
-mkdir ~/.config/nvim
+mkdir -p ~/.config/nvim/autoload
 ln -s ./init.vim ~/.config/nvim/
+ln -s ./vim-plug/plug.vim ~/.config/nvim/autoload/
+ln -s ./.eslintrc ~/
 
 # Step : Run vim setup
 vim +PlugInstall +qall

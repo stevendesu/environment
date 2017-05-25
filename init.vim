@@ -20,6 +20,12 @@ set number
 set showcmd
 syntax on
 set gfn=Monospace\ 10
+colorscheme monokai
+
+if (exists('+colorcolumn'))
+	set colorcolumn=80
+	highlight ColorColumn ctermbg=236 guibg=236
+endif
 
 "" Search
 set incsearch
@@ -50,8 +56,11 @@ endif
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 "Plug 'tpope/vim-fugitive'
-"Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
+Plug 'bronson/vim-trailing-whitespace'
+
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 call plug#end()
 
@@ -144,3 +153,5 @@ let g:syntastic_check_on_wq=0
 "Checkers
 
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_python_checkers=['flake8', 'pylint']
+

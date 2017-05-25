@@ -60,6 +60,15 @@ sudo apt-get install neovim
 sudo apt-get install python-neovim
 sudo apt-get install python3-neovim
 
+# Step : Install other development tools
+sudo apt-get install nodejs
+sudo apt-get install npm
+
+# Step : Install linters
+sudo npm install -g eslint
+sudo apt-get install pylint
+sudo pip install flake8
+
 # Step : Configure neovim
 echo "Configuring neovim..."
 #sudo apt-get --yes install python-dev python-pip python3-dev \

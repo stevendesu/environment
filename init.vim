@@ -62,6 +62,8 @@ Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
+Plug 'neomake/neomake'
+
 call plug#end()
 
 "*****************************************************************************
@@ -116,7 +118,8 @@ nnoremap N Nzzzv
 "*****************************************************************************
 "" Autocmd Rules
 "*****************************************************************************
-"" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
+"" The PC is fast enough,
+"" do syntax highlight syncing from start unless 200 lines
 augroup vimrc-sync-fromstart
   autocmd!
   autocmd BufEnter * :syntax sync maxlines=200
@@ -155,3 +158,16 @@ let g:syntastic_check_on_wq=0
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_python_checkers=['flake8', 'pylint']
 
+let g:syntastic_mode_map={
+  \ "mode": "passive",
+  \ "active_filetypes": [],
+  \ "passive_filetypes": [] }
+
+"*****************************************************************************
+"" Neomake
+"*****************************************************************************
+
+autocmd! BufReadPost,BufWritePost * Neomake
+
+let g:neomake_serialize=1
+let g:neomake_serialize_abort_on_error=1

@@ -14,6 +14,9 @@ set softtabstop=4
 set shiftwidth=4
 set mousemodel=popup
 
+"" Copy/Paste
+set clipboard=unnamedplus
+
 "" Visual
 set ruler
 set number
@@ -43,6 +46,9 @@ set directory=~/.config/nvim/backup,.
 "" Recommended, but I don't understand it
 "set hidden
 
+"" Retain undo history between instances
+set undofile
+
 if exists('$SHELL')
     set shell=$SHELL
 else
@@ -60,7 +66,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'bronson/vim-trailing-whitespace'
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 Plug 'neomake/neomake'
 
@@ -114,6 +120,10 @@ cnoreabbrev QW wq
 "" search will center on the line it's found in.
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+"" Fix a long-standing aggrevation with my Latitude E5570 keyboard
+nnoremap <PageUp> <nop>
+nnoremap <PageDown> <nop>
 
 "*****************************************************************************
 "" Autocmd Rules

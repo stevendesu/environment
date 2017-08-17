@@ -28,16 +28,24 @@
 # life easy. I'll also assume I am running as a non-root user in the sudoers
 ###############################################################################
 
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
 # Step 1: Determine if we have sudo power. This will determine how we install
 #         different software going forward
 
 # Step : Ensure our submodules are initialized
 echo "Preparing environment repo..."
-git submodule update --init --recursive
+git submodule update --init --recursive > /dev/null
 
 # Step : Install zsh
 echo "Installing zsh..."
-sudo apt-get --yes install zsh > /dev/null
+sudo apt-get install --yes zsh > /dev/null
 
 # Step : Configure zsh
 echo "Configuring zsh..."
@@ -48,26 +56,25 @@ chsh -s $(which zsh)
 
 # Step : Install tmux
 echo "Installing tmux..."
-sudo apt-get --yes install tmux > /dev/null
+sudo apt-get install --yes tmux > /dev/null
 
 # Step : Install neovim
 echo "Installing neovim..."
 #sudo apt-get --yes install software-properties-common > /dev/null
 #sudo apt-add-repository -y ppa:neovim-ppa/unstable > /dev/null
 #sudo apt-get update > /dev/null
-#sudo apt-get --yes install neovim > /dev/null
-sudo apt-get install neovim
-sudo apt-get install python-neovim
-sudo apt-get install python3-neovim
+sudo apt-get install --yes neovim > /dev/null
+sudo apt-get install --yes python-neovim > /dev/null
+sudo apt-get install --yes python3-neovim > /dev/null
 
 # Step : Install other development tools
-sudo apt-get install nodejs
-sudo apt-get install npm
+sudo apt-get install --yes nodejs > /dev/null
+sudo apt-get install --yes npm > /dev/null
 
 # Step : Install linters
-sudo npm install -g eslint
-sudo apt-get install pylint
-sudo pip install flake8
+sudo npm install -g eslint > /dev/null
+sudo apt-get install --yes pylint > /dev/null
+sudo pip install flake8 > /dev/null
 
 # Step : Configure neovim
 echo "Configuring neovim..."
@@ -80,17 +87,17 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim \
 	60 > /dev/null
 
 # Step : Copy config and rc files
-ln -s ./.tmux.d ~/
-ln -s ./.tmux.conf ~/
-ln -s ./.zlogin ~/
-ln -s ./.zlogout ~/
-ln -s ./.zpreztorc ~/
-ln -s ./.zshenv ~/
-ln -s ./.zshrc ~/
+ln -s ${DIR}/.tmux.d ~/
+ln -s ${DIR}/.tmux.conf ~/
+ln -s ${DIR}/.zlogin ~/
+ln -s ${DIR}/.zlogout ~/
+ln -s ${DIR}/.zpreztorc ~/
+ln -s ${DIR}/.zshenv ~/
+ln -s ${DIR}/.zshrc ~/
 mkdir -p ~/.config/nvim/autoload
-ln -s ./init.vim ~/.config/nvim/
-ln -s ./vim-plug/plug.vim ~/.config/nvim/autoload/
-ln -s ./.eslintrc ~/
+ln -s ${DIR}/init.vim ~/.config/nvim/
+ln -s ${DIR}/vim-plug/plug.vim ~/.config/nvim/autoload/
+ln -s ${DIR}/.eslintrc ~/
 
 # Step : Run vim setup
 vim +PlugInstall +qall

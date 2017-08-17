@@ -53,10 +53,6 @@
       "warn",
       "self"
     ],
-    "curly": [
-      "error",
-      "multi-or-nest"
-    ],
     "default-case": "error",
     "dot-notation": "warn",
     "eol-last": "warn",
@@ -78,7 +74,7 @@
       {
         "min": 3,
         "max": 30,
-        "exceptions": ["i", "j", "x", "y", "e"]
+        "exceptions": ["i", "j", "x", "y", "e", "id", "$"]
       }
     ],
     "indent": [
@@ -168,7 +164,7 @@
     "no-magic-numbers": [
       "warn",
       {
-        "ignore": [1]
+        "ignore": [0, 1]
       }
     ],
     "no-mixed-operators": "error",
@@ -214,14 +210,8 @@
     "prefer-const": "warn",
     "prefer-numeric-literals": "warn",
     "prefer-promise-reject-errors": "error",
-    "quote-props": [
-      "warn",
-      "consistent-as-needed",
-      {
-        "keywords": true
-      }
-    ],
-    "quotes": [
+    "quote-props": "error",
+	"quotes": [
       "warn",
       "double",
       {
@@ -230,7 +220,7 @@
     ],
     "require-await": "error",
     "semi": [
-      "warn",
+      "error",
       "always"
     ],
     "semi-spacing": [

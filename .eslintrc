@@ -6,6 +6,7 @@
   },
   "extends": "eslint:recommended",
   "parserOptions": {
+	"ecmaVersion": 2017,
     "sourceType": "module"
   },
   "rules": {
@@ -61,7 +62,7 @@
     "func-name-matching": "error",
     "func-names": [
       "warn",
-      "as-needed"
+      "never"
     ],
     "global-require": "warn",
     "guard-for-in": "error",
@@ -72,9 +73,9 @@
     "id-length": [
       "warn",
       {
-        "min": 3,
+        "min": 2,
         "max": 30,
-        "exceptions": ["i", "j", "x", "y", "e", "id", "$"]
+        "exceptions": ["i", "x", "y", "e", "$"]
       }
     ],
     "indent": [
@@ -164,7 +165,7 @@
     "no-magic-numbers": [
       "warn",
       {
-        "ignore": [0, 1]
+        "ignore": [-1, 0, 1, 60, 100, 1000, 86400]
       }
     ],
     "no-mixed-operators": "error",
@@ -210,7 +211,7 @@
     "prefer-const": "warn",
     "prefer-numeric-literals": "warn",
     "prefer-promise-reject-errors": "error",
-    "quote-props": "error",
+    "quote-props": ["error", "consistent"],
 	"quotes": [
       "warn",
       "double",

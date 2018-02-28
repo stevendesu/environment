@@ -21,7 +21,6 @@ set clipboard=unnamedplus
 set ruler
 set number
 set showcmd
-syntax on
 set gfn=Monospace\ 10
 colorscheme monokai
 
@@ -35,6 +34,11 @@ set incsearch
 set hlsearch
 set ignorecase
 set smartcase
+
+"" Syntax Highlighting
+syntax on
+filetype on
+au BufNewFile,BufRead *.vue set filetype=html
 
 "" Backups
 set backupdir=~/.config/nvim/backup,.
@@ -123,7 +127,9 @@ nnoremap N Nzzzv
 
 "" Fix a long-standing aggrevation with my Latitude E5570 keyboard
 nnoremap <PageUp> <nop>
+inoremap <PageUp> <nop>
 nnoremap <PageDown> <nop>
+inoremap <PageDown> <nop>
 
 "*****************************************************************************
 "" Autocmd Rules

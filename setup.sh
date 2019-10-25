@@ -91,6 +91,7 @@ ln -s ${DIR}/.tmux.d ~/
 ln -s ${DIR}/.tmux.conf ~/
 ln -s ${DIR}/.zlogin ~/
 ln -s ${DIR}/.zlogout ~/
+ln -s ${DIR}/.zprezto ~/
 ln -s ${DIR}/.zpreztorc ~/
 ln -s ${DIR}/.zshenv ~/
 ln -s ${DIR}/.zshrc ~/

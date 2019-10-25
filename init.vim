@@ -69,6 +69,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'pangloss/vim-javascript'
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
@@ -173,6 +174,7 @@ let g:syntastic_check_on_wq=0
 
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_python_checkers=['flake8', 'pylint']
+let g:syntastic_cpp_checkers=['gcc']
 
 let g:syntastic_mode_map={
   \ "mode": "passive",

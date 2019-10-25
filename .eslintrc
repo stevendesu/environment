@@ -27,7 +27,12 @@
         "allowSingleLine": true
       }
     ],
-    "camelcase": "warn",
+    "camelcase": [
+	  "warn",
+	  {
+	    "properties": "never"
+	  }
+	],
     "capitalized-comments": [
       "warn",
       "always",
@@ -73,9 +78,9 @@
     "id-length": [
       "warn",
       {
-        "min": 2,
+        "min": 3,
         "max": 30,
-        "exceptions": ["i", "x", "y", "e", "$"]
+        "exceptions": ["i", "j", "k", "x", "y", "z", "e", "$", "id", "to", "fs", "el"]
       }
     ],
     "indent": [
@@ -165,7 +170,7 @@
     "no-magic-numbers": [
       "warn",
       {
-        "ignore": [-1, 0, 1, 60, 100, 1000, 86400]
+        "ignore": [-1, 0, 1, 2, 8, 16, 60, 100, 180, 360, 1000, 1024, 86400]
       }
     ],
     "no-mixed-operators": "error",
@@ -199,7 +204,7 @@
     "no-unmodified-loop-condition": "error",
     "no-unneeded-ternary": "warn",
     "no-unused-expressions": "error",
-    "no-use-before-define": "error",
+    "no-use-before-define": ["error", "nofunc"],
     "no-useless-call": "warn",
     "no-useless-computed-key": "warn",
     "no-useless-concat": "warn",
@@ -252,6 +257,9 @@
         }
       }
     ],
-    "wrap-iife": "error"
+    "wrap-iife": [
+	  "error",
+	  "inside"
+	]
   }
 }

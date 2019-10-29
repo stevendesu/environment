@@ -95,9 +95,12 @@ ln -s ${DIR}/.zprezto ~/
 ln -s ${DIR}/.zpreztorc ~/
 ln -s ${DIR}/.zshenv ~/
 ln -s ${DIR}/.zshrc ~/
+ln -s ${DIR}/.zprofile ~/
 mkdir -p ~/.config/nvim/autoload
+mkdir -p ~/.config/nvim/colors
 ln -s ${DIR}/init.vim ~/.config/nvim/
 ln -s ${DIR}/vim-plug/plug.vim ~/.config/nvim/autoload/
+ln -s ${DIR}/vim-monokai/colors/monokai.vim ~/.config/nvim/colors/
 ln -s ${DIR}/.eslintrc ~/
 
 # Step : Run vim setup

@@ -23,13 +23,15 @@ WIDTH=$1
 # We need to compute these for all screen sizes
 
 # CPU Load (%)
-pcpu=$(ps -Ao pcpu | awk '{sum = sum + $1}END{printf "%4.1f", sum}')
+ncpu=$(sysctl -n hw.ncpu)
+lcpu=$(ps -Ao pcpu | awk '{sum = sum + $1}END{printf sum}')
+pcpu=$(echo "scale=1; $lcpu/$ncpu" | bc | awk '{printf "%4.1f", $0}')
 
 # MEM load (KB)
 mem=$(ps -Ao rss | awk '{sum = sum + $1}END{print sum}')
 
 # Total MEM (KB)
-tmem=$(cat /proc/meminfo | awk '/MemTotal/ {print $2}')
+tmem=$(($(sysctl -n hw.memsize) / 1024))
 
 # We need to compute these only for large and up
 if [ $WIDTH -ge $MEDIUM_SCREEN ]; then
@@ -38,7 +40,7 @@ if [ $WIDTH -ge $MEDIUM_SCREEN ]; then
   mail=$(~/.tmux.d/helpers/mail.sh)
 
   # HTTP status
-  http=$(netstat -tln | grep ":80" > /dev/null && echo -n "true")
+  http=$(netstat -tln | grep ":80" > /dev/null && printf "true")
 
 fi
 
@@ -53,13 +55,15 @@ fi
 # Helper function to convert KB to K/M/G/T
 human_print() {
   # We start with KB from /proc/meminfo and ps
-  [ $1 -lt 16384 ] && echo "${KB} K" && return
+  [ $1 -lt 16384 ] && printf "${KB} K" && return
   MB=$((($1+512)/1024))
-  [ $MB -lt 16384 ] && echo "${MB} M" && return
+  [ $MB -lt 16384 ] && printf "${MB} M" && return
   GB=$(((MB+512)/1024))
-  [ $GB -lt 16384 ] && echo "${GB} G" && return
+  [ $GB -lt 16384 ] && printf "${GB} G" && return
   TB=$(((GB+512)/1024))
-  [ $TB -lt 16384 ] && echo "${TB} T" && return
+  [ $TB -lt 16384 ] && printf "${TB} T" && return
+  PB=$(((TB+512)/1024))
+  printf "${PB} P"
 }
 
 print_bars() {
@@ -67,18 +71,18 @@ print_bars() {
   local cur=$(($int*10/$2))
   local cnt=0
   while [ $cur -gt 0 ]; do
-    [ $cnt -lt 3 ] && echo -n "#[fg=colour2]"
-    [ $cnt -gt 2 -a $cnt -lt 7 ] && echo -n "#[fg=colour3]"
-    [ $cnt -gt 5 ] && echo -n "#[fg=colour1]"
-    echo -n '|'
+    [ $cnt -lt 3 ] && printf "#[fg=colour2]"
+    [ $cnt -gt 2 -a $cnt -lt 7 ] && printf "#[fg=colour3]"
+    [ $cnt -gt 5 ] && printf "#[fg=colour1]"
+    printf '|'
     cnt=$(($cnt + 1))
     cur=$(($cur - 1))
   done
   while [ $cnt -lt 10 ]; do
-    echo -n ' '
+    printf ' '
     cnt=$(($cnt + 1))
   done
-  echo -n "#[fg=colour0]"
+  printf "#[fg=colour0]"
 }
 
 if [ $WIDTH -lt 40 ]; then
@@ -112,5 +116,5 @@ if [ $WIDTH -ge $LARGE_SCREEN ]; then
   else
     httpcolor="#[fg=colour1]"
   fi
-  echo "CPU: $pcpu% [$(print_bars $pcpu 100)] MEM: $(human_print $mem) / $(human_print $tmem) [$(print_bars $mem $tmem)] | HTTP $httpcolor###[fg=colour0] | $(date +%r)"
+  echo "CPU: $pcpu% [$(print_bars $pcpu $((100*$(sysctl -n hw.ncpu))))] MEM: $(human_print $mem) / $(human_print $tmem) [$(print_bars $mem $tmem)] | HTTP $httpcolor###[fg=colour0] | $(date +%r)"
 fi

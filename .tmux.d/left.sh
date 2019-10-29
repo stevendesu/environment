@@ -31,10 +31,18 @@ fi
 #if [ $WIDTH -ge $LARGE_SCREEN ]; then
 
   # Operating System
-  os=$(lsb_release -a | grep "Desc" | awk '{for(i=2;i<=NF;i++) printf "%s",$i (i==NF?ORS:OFS)}')
+  if [[ "$OSTYPE" == linux* ]]; then
+    os=$(lsb_release -a | grep "Desc" | awk '{for(i=2;i<=NF;i++) printf "%s",$i (i==NF?ORS:OFS)}')
+  elif [[ "$OSTYPE" == darwin* ]]; then
+    os="OS X $(sw_vers -productVersion)"
+  fi
 
   # Uptime
-  upt=$(uptime | awk -F'( |,|:)+' '{if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {printf "%02d:%02d:%02d:00", d, h, m}')
+  if [[ "$OSTYPE" == linux* ]]; then
+    upt=$(uptime | awk -F'( |,|:)+' '{if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {printf "%02d:%02d:%02d:00", d, h, m}')
+  elif [[ "$OSTYPE" == darwin* ]]; then
+    upt=$(uptime | awk -F'( |,|:)+' '{d=$4; h=$6; m=$7} {printf "%02d:%02d:%02d:00", d, h, m}')
+  fi
 
 #fi
 

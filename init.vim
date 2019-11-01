@@ -135,6 +135,7 @@ inoremap <PageDown> <nop>
 "*****************************************************************************
 "" Autocmd Rules
 "*****************************************************************************
+
 "" The PC is fast enough,
 "" do syntax highlight syncing from start unless 200 lines
 augroup vimrc-sync-fromstart

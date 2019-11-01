@@ -86,7 +86,10 @@ ln -s ${DIR}/.zprezto ~/
 ln -s ${DIR}/.zpreztorc ~/
 ln -s ${DIR}/.zshenv ~/
 ln -s ${DIR}/.zshrc ~/
-ln -s ${DIR}/.zprofile ~/
+# Certain programs or scripts may modify .zprofile
+# I don't want those changes to persist as part of my "base" environment
+#ln -s ${DIR}/.zprofile ~/
+cp ${DIR}/.zprofile ~/
 mkdir -p ~/.config/nvim/autoload
 mkdir -p ~/.config/nvim/colors
 ln -s ${DIR}/init.vim ~/.config/nvim/

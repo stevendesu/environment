@@ -116,5 +116,5 @@ if [ $WIDTH -ge $LARGE_SCREEN ]; then
   else
     httpcolor="#[fg=colour1]"
   fi
-  echo "CPU: $pcpu% [$(print_bars $pcpu $((100*$(sysctl -n hw.ncpu))))] MEM: $(human_print $mem) / $(human_print $tmem) [$(print_bars $mem $tmem)] | HTTP $httpcolor###[fg=colour0] | $(date +%r)"
+  echo "CPU: $pcpu% [$(print_bars $pcpu 100)] MEM: $(human_print $mem) / $(human_print $tmem) [$(print_bars $mem $tmem)] | HTTP $httpcolor###[fg=colour0] | $(date +%r)"
 fi

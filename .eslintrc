@@ -5,6 +5,10 @@
     "node": true
   },
   "extends": "eslint:recommended",
+  "globals": {
+    "use": "readonly",
+    "make": "readonly"
+  },
   "parserOptions": {
 	"ecmaVersion": 2017,
     "sourceType": "module"
@@ -80,7 +84,7 @@
       {
         "min": 3,
         "max": 30,
-        "exceptions": ["i", "j", "k", "x", "y", "z", "e", "$", "id", "to", "fs", "el"]
+        "exceptions": ["e", "i", "j", "k", "x", "y", "z", "$", "db", "el", "fs", "id", "pg", "to", "up"]
       }
     ],
     "indent": [
@@ -170,7 +174,7 @@
     "no-magic-numbers": [
       "warn",
       {
-        "ignore": [-1, 0, 1, 2, 8, 16, 60, 100, 180, 360, 1000, 1024, 86400]
+        "ignore": [-1, 0, 1, 2, 8, 24, 60, 180, 255, 360, 1000, 1024, 86400]
       }
     ],
     "no-mixed-operators": "error",

@@ -54,7 +54,15 @@ chsh -s $(which zsh)
 echo "Installing tmux..."
 INSTALL tmux > /dev/null
 
-# Step 6: Install neovim
+# Step 6: Install other development tools
+echo "Installing dev tools..."
+INSTALL curl > /dev/null
+INSTALL nodejs > /dev/null
+INSTALL npm > /dev/null
+INSTALL python3 > /dev/null
+curl https://bootstrap.pypa.io/get-pip.py | python3
+
+# Step 7: Install neovim (after Python3)
 echo "Installing neovim..."
 #sudo apt-get --yes install software-properties-common > /dev/null
 #sudo apt-add-repository -y ppa:neovim-ppa/unstable > /dev/null
@@ -63,16 +71,10 @@ INSTALL neovim > /dev/null
 INSTALL python-neovim > /dev/null
 INSTALL python3-neovim > /dev/null
 
-# Step 7: Install other development tools
-echo "Installing dev tools..."
-INSTALL nodejs > /dev/null
-INSTALL npm > /dev/null
-
 # Step 8: Install linters
 echo "Installing linters..."
 npm install -g eslint > /dev/null
-INSTALL pylint > /dev/null
-pip install flake8 --user > /dev/null
+pip install --user pylint flake8 bandit > /dev/null
 
 # Step 9: Copy config and rc files
 echo "Copying config files to ${DIR}..."

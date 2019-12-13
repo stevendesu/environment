@@ -73,7 +73,7 @@ INSTALL python3-neovim > /dev/null
 
 # Step 8: Install linters
 echo "Installing linters..."
-npm install -g eslint > /dev/null
+npm install -g eslint eslint-plugin-vue eslint-plugin-cypress  > /dev/null
 pip install --user pylint flake8 bandit > /dev/null
 
 # Step 9: Copy config and rc files
